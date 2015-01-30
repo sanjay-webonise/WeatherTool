@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Weather Widget</title>
+<link href="../css/map.css" rel="stylesheet"/>
+<link href="../css/flatred.css" rel="stylesheet"/>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=weather"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script>
+          var javaBridge = null;
+
+          function Logger(id, javaBridge) {
+                     this.id = id;
+                     this.javaBridge = javaBridge;
+          }
+
+          Logger.prototype.formatMessage = function(message) {
+                     return "[" + this.id + "] - " + message;
+          }
+
+          Logger.prototype.debug = function(message) {
+                    this.javaBridge.logDebug(this.formatMessage(message));
+          }
+
+         function JSEditor(javaBridge) {
+                   this.logger = new Logger("JSEditor", javaBridge);
+                   this.logger.debug("Creating JSEditor");
+                   this.javaBridge = javaBridge;
+                   this.isReady = true;
+         }
+
+         JSEditor.prototype.show = function() {
+                   bridge.show();
+         }
+
+
+        JSEditor.prototype.addExtraLayer = function(path) {
+                  addExtraLayer(path);
+        }
+
+
+        function initialize() {
+
+                 var mapOptions = { zoom: 2, center: new google.maps.LatLng(0,0) };
+
+                 var latLng=0;
+
+                 var latLng1=0;
+
+                 var map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
+
+                 google.maps.event.addListener(map, "click", function (e) {
+
+                        var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+
+                        //lat and lng is available in e object
+
+                        latLng = e.latLng.lat();
+                        latLng1 = e.latLng.lng();
+                        var myLatlng = new google.maps.LatLng(latLng,latLng1);
+
+
+                        var marker = new google.maps.Marker({
+                                     position: myLatlng,
+                                     icon: 'http://google-maps-icons.googlecode.com/files/sailboat-tourism.png',
+                                     title:"Click to view info!",
+
+                         });
+
+
+
+                      marker.setMap(map);
+
+
+                      findWeatherByLatlong(latLng,latLng1);
+                       var contentString='<!DOCTYPE html>'+
+                                        '<html>'+
+                                        '<head></head>'+
+                                        '<body>'+
+
+                                        '<div style="float:left; font-size:20px; margin:6px">'+
+                                            '<div id="error-msg"></div>'+
+                                            '<div id="city" class="tileTextDisplay largerFont"></div>'+
+                                            '<div id="country" class="tileTextDisplay mediumFont"></div>'+
+                                            '<div id="weather-day-time" class="tileTextDisplay mediumFont"></div>'+
+                                            '<div id="weather-current" class="tileTextDisplay mediumFont"></div>'+
+                                            '<div >'+
+                                               '<h5 >'+
+                                                 'Latitude: ' + latLng1 + '<br> Longitude: ' + latLng + ' '+
+                                               '</h5 >'+
+                                            '</div >'+
+                                            '<div id="weather-current-desc" class="tileTextDisplay mediumFont"></div>'+
+
+                                            '<div>'+
+                                                  '<img id="weather-icon" style="float:left;height:64px;width:64px" src="" alt=""/>'+
+                                                  '<div id="weather-temp" style="padding-left:10px; float:left;"></div>'+
+                                                  '<div style="float:left; font-size:20px; margin-top:6px">'+
+                                                       '<span style="display:inline"><span id="unitType">&#8451</span></span>'+
+                                                  '</div>'+
+                                            '</div>'+
+                                            ' <div style="clear:both;"></div>'+
+                                            ' <div id="weather-humidity" class="tileTextDisplay mediumFont"></div>'+
+                                            ' <div id="weather-wind-speed" class="tileTextDisplay mediumFont"></div>'+
+                                            ' <hr/>'+
+                                         '</div>'+
+                                        '</body>'+
+                                        '</html>';
+
+                      google.maps.event.addListener(marker, "click", function (e) {
+
+
+
+                                        var infowindow = new google.maps.InfoWindow({  content:contentString });
+
+                                        infowindow.open(map,marker);
+                      });
+
+
+
+                                        //var weatherLayer = new google.maps.weather.WeatherLayer({temperatureUnits: google.maps.weather.TemperatureUnit.FAHRENHEIT});
+                                        //var cloudLayer = new google.maps.weather.CloudLayer();
+                                        //weatherLayer.setMap(map);
+                                        // cloudLayer.setMap(map);
+
+                 });
+
+                      google.maps.event.addListener(map, 'click', function(e) {var latlon=e.latLng; alert("Lat=" + lat ); console.log("LatLong"+latlon);});
+
+                       //map.on( "click", function (event) {    var lat = event.latlng;    // populate yor box/field with lat, lng    alert("Lat=" + lat );});
+
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+
+        var weekday=new Array(7);
+        weekday[0]="Sunday";
+        weekday[1]="Monday";
+        weekday[2]="Tuesday";
+        weekday[3]="Wednesday";
+        weekday[4]="Thursday";
+        weekday[5]="Friday";
+        weekday[6]="Saturday";
+
+
+       /** -- B --
+         * Makes an upcall to Java code
+         * WeatherWidget2 clas method queryWeatherByLocationAndUnit()
+       */
+
+        function findWeatherByLatlong(latLng,latLng1) {
+                            var lons = latLng1;
+                            var lats = latLng;
+
+                            setInnerText("error-msg", "");
+                            WeatherWidget2.queryWeatherByLatlongAndUnit(lons ,lats, "c");
+        }
+
+        function findWeatherByLatlongs() {
+                            var lons = encodeURIComponent(document.getElementById('search-lon').value);
+                            var lats =  encodeURIComponent(document.getElementById('search-lat').value);
+
+                            setInnerText("error-msg", "");
+                            WeatherWidget2.queryWeatherByLatlongsAndUnit(lons ,lats, "c");
+        }
+
+        function findWeatherByLocation() {
+
+                            var cityInfo = encodeURIComponent(document.getElementById('search-field').value);
+                            setInnerText("error-msg", "");
+                            WeatherWidget2.queryWeatherByLocationAndUnit(cityInfo, "c");
+        }
+
+
+        /** -- E --
+          * Called from Java after data is fetched.
+        */
+
+        function populateWeatherData(weather, unitType) {
+                            var jsonWeather = eval("(" + weather + ")");
+                            if (jsonWeather.message) {
+
+                                    if (jsonWeather.message.indexOf('Error') === 0 ) {
+
+                                            document.getElementById('error-msg').innerHTML = jsonWeather.message;
+                                            alert(jsonWeather.message);
+                                            return;
+                                    }
+                            }
+
+                                   var sunset = jsonWeather.sys.sunset;
+
+									var dt = new Date(sunset * 1000);
+									var hr = dt.getHours();
+									if (hr < 10)
+										hr = '0' + hr;
+									var mn = dt.getMinutes();
+									if (mn < 10)
+										mn = '0' + mn;
+
+									var sunset_time = (hr + ':' + mn + ' PM');
+
+                                   var sunrise = jsonWeather.sys.sunrise;
+
+									var dt_sr = new Date(sunrise * 1000);
+									var hr_sr = dt_sr.getHours();
+									if (hr_sr < 10)
+										hr_sr = '0' + hr_sr;
+									var mn_sr = dt_sr.getMinutes();
+									if (mn_sr < 10)
+										mn_sr = '0' + mn;
+
+									var sunrise_time = (hr_sr + ':' + mn_sr + ' AM');
+
+
+                            setInnerText('city', jsonWeather.name);
+                            setInnerText('country', jsonWeather.sys.country);
+
+                            var weatherTime = new Date(jsonWeather.dt);
+                            var timeStr = timeFormat(jsonWeather.dt);
+                            setInnerText('weather-day-time', timeStr);
+
+                           setInnerText('weather-current', jsonWeather.weather[0].main);
+                            setInnerText('weather-current-desc', jsonWeather.weather[0].description);
+
+                            setInnerText('sunrise',"Sunrise:" + sunrise_time);
+                            setInnerText('sunset', "Sunset: " + sunset_time);
+
+                             setInnerText('weather-current-temp_max',"Temp_max: " + jsonWeather.main.temp_max );
+                             setInnerText('weather-current-temp_min',"Temp_min: " + jsonWeather.main.temp_min );
+                             setInnerText('weather-current-pressure',"Pressure: " + jsonWeather.main.pressure +" in");
+
+                           document.getElementById('weather-icon').src = "http://openweathermap.org/img/w/" + jsonWeather.weather[0].icon + ".png";
+                           setInnerText('weather-temp', jsonWeather.main.temp);
+
+                            setInnerText('weather-humidity', "Humidity: " + jsonWeather.main.humidity + "%");
+                            var windSpeed = (unitType === 'f') ? 'mph' : 'km/h';
+                            setInnerText('weather-wind-speed', "Wind: " + jsonWeather.wind.speed + " " +windSpeed);
+        }
+
+        function setInnerText(id, text) {
+                            document.getElementById(id).innerText = text;
+        }
+
+        function timeFormat( millis ) {
+
+                            var weatherTime = new Date(millis*1000);
+							var hr = weatherTime.getHours();
+                            console.log("getHours():" +hr);
+							var meridian = hr >= 12 ? 'PM' : 'AM';
+
+									if (hr < 10)
+										hr = '0' + hr;
+									var mn = weatherTime.getMinutes();
+									if (mn < 10)
+										mn = '0' + mn;
+									var mon = weatherTime.getMonth() + 1;
+									if (mon < 10)
+										mon = '0' + mon;
+									var day = weatherTime.getDate();
+									if (day < 10)
+										day = '0' + day;
+									var year = weatherTime.getFullYear();
+
+									var timeStr = year + '/' + mon + '/' + day
+											+ ' ' + hr + ':' + mn+ ' ' + meridian;
+                            return timeStr;
+
+
+
+         }
+
+        var bridge = null;
+
+        function createJSEditor(javaBridge) {
+                            bridge = javaBridge;
+                            return new JSEditor(javaBridge);
+        }
+</script>
+
+</head>
+
+<body>
+
+<div id="wrapper">
+    <div id="navigation"><center><h4 style="padding-top:8px">Weather Widget</h4></center></div>
+    <div id="menu">
+        <div style="float:left; font-size:20px; margin:6px">
+            <label>Weather</label>
+            <hr/>
+            <form style=" margin-top:6px">
+
+                <label id="enterCity" >Enter City Name</label>
+                <input id="search-field" placeholder="Enter city, state/country" type="text" name="searchField" />
+                <!-- A -->
+                <input id="button" type="BUTTON" onclick="findWeatherByLocation()" name="searchButton" value="Search"/>
+                <hr/>
+                <label id="lst" >Enter Lat and Lon</label>
+
+                <input id="search-lon" placeholder="Enter Long" type="text" name="searchField" />
+                <input id="search-lat" placeholder="Enter Lat " type="text" name="searchField" />
+                <input id="search-button" type="BUTTON" onclick="findWeatherByLatlongs()" name="searchButton" value="Search"/>
+                <hr/>
+
+            </form>
+            <div id="menu1">
+                <div id="error-msg"></div>
+                <div id="city" class="tileTextDisplay largerFont" style=" background-color: #6666FF"></div>
+                <div id="country" class="tileTextDisplay mediumFont"></div>
+
+                <div id="weather-day-time" class="tileTextDisplay mediumFont"></div>
+
+                <div>
+                    <img id="weather-icon" style="float:left;height:64px;width:64px" src="" alt=""/>
+                    <div id="weather-temp" style="padding-left:6px; float:left;"></div>
+                    <div style="float:left; font-size:15px; margin-top:6px">
+                        <span style="display:inline"><span id="unitType">&#8451</span></span>
+                    </div>
+                </div>
+                <div style="clear:both;"></div>
+
+
+                <div>
+                    <div id="weather-current" class="tileTextDisplay mediumFont"></div>
+                    <div id="weather-current-desc" class="tileTextDisplay mediumFont" ></div>
+
+                    <div id="weather-current-temp_max" class="tileTextDisplay mediumFont" style="padding-left:0px; float:left;"></div>
+                    <div style="float:left; font-size:14px; margin-top:1px">
+                        <span style="display:inline"><span id="unit">&#8451</span></span>
+                    </div>
+                    <div style="clear:both;"></div>
+
+                    <div id="weather-current-temp_min" class="tileTextDisplay mediumFont" style="padding-left:0px; float:left;"></div>
+                    <div style="float:left; font-size:14px; margin-top:1px">
+                        <span style="display:inline"><span id="Type">&#8451</span></span>
+                    </div><br>
+                    <div style="clear:both;"></div>
+                    <div id="weather-current-pressure" class="tileTextDisplay mediumFont"></div>
+
+
+                    <div id="weather-humidity" class="tileTextDisplay mediumFont"></div>
+                    <div id="weather-wind-speed" class="tileTextDisplay mediumFont"></div>
+
+                    <div id="sunrise" class="tileTextDisplay mediumFont"></div>
+                    <div id="sunset" class="tileTextDisplay mediumFont"></div>
+                </div>
+                <br>
+                <hr>
+
+            </div>
+
+
+        </div>
+    </div>
+    <div id="content">
+        <div id="map-canvas" ></div>
+    </div>
+    <div id="footer"></div>
+</div>
+</body>
+</html>
