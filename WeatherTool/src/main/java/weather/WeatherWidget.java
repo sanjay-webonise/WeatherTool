@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 import netscape.javascript.JSObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -59,11 +58,9 @@ public class WeatherWidget extends Application {
        webView = new WebView();
        root.setCenter(webView);
       
-       // Turns on Firebug lite for debugging
-       // html,css, javascript
-       //enableFirebug(webView);
-        
-       // The web view's web engine
+       /*Turns on Firebug lite for debugging
+       html,css, javascript
+       enableFirebug(webView);*/
 
        webView.getEngine().getLoadWorker().stateProperty().addListener( (obs, oldValue, newValue) -> {
                  if (newValue == Worker.State.SUCCEEDED) {
@@ -88,7 +85,6 @@ public class WeatherWidget extends Application {
        // load weather_template.html
        final URL urlGoogleMaps = getClass().getResource("/html/weather.html");
 
-       //String htmlFile = streamToString( getClass().getClassLoader().getResourceAsStream("html/weather_template.html"));
        webView.getEngine().load(urlGoogleMaps.toExternalForm());
        stage.show();
    }
@@ -131,22 +127,22 @@ public class WeatherWidget extends Application {
     /** -- C --
      * Called from the JavaScript function findWeatherByLocation()
      * inside of the weather_template.html file.
-     * @param lats
-     * @param lons
+     * @param Latitude
+     * @param Longitude
      * @param unitType
      */
 
-    public void queryWeatherByLatlongAndUnit(String lons,String lats, String unitType) {
+    public void queryWeatherByLatlongAndUnit(String Longitude,String Latitude, String unitType) {
 
-               String queryString = null;
-               String queryString1 = null;
-               queryString = lons;
-               queryString1 = lats;
+               String queryStringLongitude = null;
+               String queryStringLatitude = null;
+        queryStringLongitude = Longitude;
+        queryStringLatitude = Latitude;
                String units = "f".equalsIgnoreCase(unitType) ? "imperial": "metric";
 
                String weatherRequest = WEATHER_URL +
-                                "?lat=" + queryString1 +
-                                "&lon=" + queryString +
+                                "?lat=" + queryStringLatitude +
+                                "&lon=" + queryStringLongitude +
                          "&" + "units=" + units +
                           "&" + "mode=json";
 
@@ -157,22 +153,22 @@ public class WeatherWidget extends Application {
     /** -- C --
      * Called from the JavaScript function findWeatherByLocation()
      * inside of the weather_template.html file.
-     * @param lats
-     * @param lons
+     * @param Latitude
+     * @param Longitude
      * @param unitType
      */
 
-    public void queryWeatherByLatlongsAndUnit(String lons,String lats, String unitType) {
+    public void queryWeatherByLatlongsAndUnit(String Longitude,String Latitude, String unitType) {
 
-                String queryString = null;
-                String queryString1 = null;
-                queryString = lons;
-                queryString1 = lats;
+                String queryStringLatitude = null;
+                String queryStringLongitude = null;
+        queryStringLongitude = Longitude;
+        queryStringLatitude = Latitude;
                 String units = "f".equalsIgnoreCase(unitType) ? "imperial": "metric";
 
                 String weatherRequest = WEATHER_URL +
-                                 "?lat=" + queryString1 +
-                                 "&lon=" + queryString +
+                                 "?lat=" + queryStringLatitude +
+                                 "&lon=" + queryStringLongitude +
                           "&" + "units=" + units +
                            "&" + "mode=json";
 

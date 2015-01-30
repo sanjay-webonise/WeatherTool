@@ -43,9 +43,9 @@
 
                  var mapOptions = { zoom: 2, center: new google.maps.LatLng(0,0) };
 
-                 var latLng=0;
+                 var Latitude=0;
 
-                 var latLng1=0;
+                 var Longitude=0;
 
                  var map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
 
@@ -55,9 +55,9 @@
 
                         //lat and lng is available in e object
 
-                        latLng = e.latLng.lat();
-                        latLng1 = e.latLng.lng();
-                        var myLatlng = new google.maps.LatLng(latLng,latLng1);
+                        Latitude = e.latLng.lat();
+                        Longitude = e.latLng.lng();
+                        var myLatlng = new google.maps.LatLng(Latitude,Longitude);
 
 
                         var marker = new google.maps.Marker({
@@ -72,7 +72,7 @@
                       marker.setMap(map);
 
 
-                      findWeatherByLatlong(latLng,latLng1);
+                      findWeatherByLatlong(Latitude,Longitude);
                        var contentString='<!DOCTYPE html>'+
                                         '<html>'+
                                         '<head></head>'+
@@ -86,7 +86,7 @@
                                             '<div id="weather-current" class="tileTextDisplay mediumFont"></div>'+
                                             '<div >'+
                                                '<h5 >'+
-                                                 'Latitude: ' + latLng1 + '<br> Longitude: ' + latLng + ' '+
+                                                 'Latitude: ' + Latitude + '<br> Longitude: ' + Longitude + ' '+
                                                '</h5 >'+
                                             '</div >'+
                                             '<div id="weather-current-desc" class="tileTextDisplay mediumFont"></div>'+
@@ -124,9 +124,7 @@
 
                  });
 
-                      google.maps.event.addListener(map, 'click', function(e) {var latlon=e.latLng; alert("Lat=" + lat ); console.log("LatLong"+latlon);});
 
-                       //map.on( "click", function (event) {    var lat = event.latlng;    // populate yor box/field with lat, lng    alert("Lat=" + lat );});
 
         }
 
@@ -148,9 +146,9 @@
          * WeatherWidget2 clas method queryWeatherByLocationAndUnit()
        */
 
-        function findWeatherByLatlong(latLng,latLng1) {
-                            var lons = latLng1;
-                            var lats = latLng;
+        function findWeatherByLatlong(Latitude,Longitude) {
+                            var lons = Longitude;
+                            var lats = Latitude;
 
                             setInnerText("error-msg", "");
                             WeatherWidget2.queryWeatherByLatlongAndUnit(lons ,lats, "c");
@@ -296,9 +294,9 @@
                 <input id="button" type="BUTTON" onclick="findWeatherByLocation()" name="searchButton" value="Search"/>
                 <hr/>
                 <label id="lst" >Enter Lat and Lon</label>
-
-                <input id="search-lon" placeholder="Enter Long" type="text" name="searchField" />
                 <input id="search-lat" placeholder="Enter Lat " type="text" name="searchField" />
+                <input id="search-lon" placeholder="Enter Long" type="text" name="searchField" />
+
                 <input id="search-button" type="BUTTON" onclick="findWeatherByLatlongs()" name="searchButton" value="Search"/>
                 <hr/>
 
