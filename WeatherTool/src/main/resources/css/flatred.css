@@ -37,6 +37,7 @@
 }
 .menu:hover > .label {
   -fx-background-color: -standard;
+
 }
 .menu .menu-button {
   -fx-background      : -standard;
@@ -78,6 +79,7 @@
   -fx-font-style       : normal;
   -fx-font-weight      : lighter;
   -fx-effect           : dropshadow(two-pass-box, rgba(0, 0, 0, 0.3), 2, 0, -2, 2);
+
 }
 .button:pressed {
   -fx-body-color  : -standard;

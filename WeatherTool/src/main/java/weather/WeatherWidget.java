@@ -49,7 +49,7 @@ public class WeatherWidget extends Application {
        stage.setTitle("Weather Widget");
        BorderPane root = new BorderPane();
        Scene scene = new Scene(root,1100,600 );
-       scene.getStylesheets().add(getClass().getClassLoader().getResource("css/map.css").toExternalForm());
+       scene.getStylesheets().add(getClass().getClassLoader().getResource("css/weatherstyle.css").toExternalForm());
        scene.getStylesheets().add(getClass().getClassLoader().getResource("css/flatred.css").toExternalForm());
        stage.setScene(scene);
 
@@ -136,8 +136,8 @@ public class WeatherWidget extends Application {
 
                String queryStringLongitude = null;
                String queryStringLatitude = null;
-        queryStringLongitude = Longitude;
-        queryStringLatitude = Latitude;
+               queryStringLongitude = Longitude;
+               queryStringLatitude = Latitude;
                String units = "f".equalsIgnoreCase(unitType) ? "imperial": "metric";
 
                String weatherRequest = WEATHER_URL +
@@ -162,8 +162,8 @@ public class WeatherWidget extends Application {
 
                 String queryStringLatitude = null;
                 String queryStringLongitude = null;
-        queryStringLongitude = Longitude;
-        queryStringLatitude = Latitude;
+                queryStringLongitude = Longitude;
+                queryStringLatitude = Latitude;
                 String units = "f".equalsIgnoreCase(unitType) ? "imperial": "metric";
 
                 String weatherRequest = WEATHER_URL +
@@ -230,7 +230,7 @@ public class WeatherWidget extends Application {
 
 
                     } catch (IOException ex ) {
-                     ex.printStackTrace();
+                        throw new RuntimeException("Error loading jsonGetRequest WeatherWidget: " + ex.getMessage(), ex);
                     }
              return json;
    }
@@ -238,8 +238,8 @@ public class WeatherWidget extends Application {
 
   private static void enableFirebug(WebView webView) {
 
-         WebEngine webEngine = webView.getEngine();
-         webEngine.documentProperty().addListener((prop, oldDoc, newDoc) ->
+                     WebEngine webEngine = webView.getEngine();
+                     webEngine.documentProperty().addListener((prop, oldDoc, newDoc) ->
                      webEngine.executeScript("if (!document.getElementById('FirebugLite')){"
                              + "E = document['createElement' + 'NS'] && document.documentElement.namespaceURI;"
                              + "E = E ? document['createElement' + 'NS'](E, 'script') : document['createElement']('script');"

@@ -131,14 +131,6 @@
         google.maps.event.addDomListener(window, 'load', initialize);
 
 
-        var weekday=new Array(7);
-        weekday[0]="Sunday";
-        weekday[1]="Monday";
-        weekday[2]="Tuesday";
-        weekday[3]="Wednesday";
-        weekday[4]="Thursday";
-        weekday[5]="Friday";
-        weekday[6]="Saturday";
 
 
        /** -- B --
@@ -289,15 +281,15 @@
             <form style=" margin-top:6px">
 
                 <label id="enterCity" >Enter City Name</label>
-                <input id="search-field" placeholder="Enter city, state/country" type="text" name="searchField" />
+                <input id="search-field" title='Enter City Name' placeholder="Enter city, state/country" type="text" name="searchField" />
                 <!-- A -->
-                <input id="button" type="BUTTON" onclick="findWeatherByLocation()" name="searchButton" value="Search"/>
+                <input id="button" type="BUTTON" class='buttons' title='Search Weather By City Name' onclick="findWeatherByLocation()" name="searchButton" value="Search"/>
                 <hr/>
-                <label id="lst" >Enter Lat and Lon</label>
+                <label id="lst" >Enter Latitude And Longitude</label>
+                <input id="search-lat" placeholder="Enter Latitude " title='Enter Latitude ' type="text" name="searchField" />
+                <input id="search-lon" placeholder="Enter Longitude" title='Enter Longitude ' type="text" name="searchField" />
 
-                <input id="search-lon" placeholder="Enter Long" type="text" name="searchField" />
-                <input id="search-lat" placeholder="Enter Lat " type="text" name="searchField" />
-                <input id="search-button" type="BUTTON" onclick="findWeatherByLatlongs()" name="searchButton" value="Search"/>
+                <input id="search-button"  class='buttons' type="BUTTON" title='Search Weather By Latitude And Longitude' onclick="findWeatherByLatlongs()" name="searchButton" value="Search"/>
                 <hr/>
 
             </form>
