@@ -61,11 +61,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="WeatherWidget.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="WeatherWidget.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/weather/WeatherWidget.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.41098902" vertical-offset="0" max-vertical-offset="4165">
-              <caret line="28" column="19" selection-start-line="28" selection-start-column="19" selection-end-line="28" selection-end-column="19" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="4165">
+              <caret line="30" column="35" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="weather.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/html/weather.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-9.725962" vertical-offset="4080" max-vertical-offset="6052">
+              <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="weatherstyle.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/css/weatherstyle.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1449" max-vertical-offset="1904">
+              <caret line="96" column="45" selection-start-line="96" selection-start-column="45" selection-end-line="96" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -89,9 +109,9 @@
         <option value="$PROJECT_DIR$/src/main/java/controller/WeatherWidgetController.java" />
         <option value="$PROJECT_DIR$/src/main/java/weather/WeatherWidget.java" />
         <option value="$PROJECT_DIR$/src/main/resources/css/flatred.css" />
-        <option value="$PROJECT_DIR$/src/main/resources/html/weather.html" />
         <option value="$PROJECT_DIR$/src/main/resources/html/index.html" />
         <option value="$PROJECT_DIR$/src/main/resources/css/map.css" />
+        <option value="$PROJECT_DIR$/src/main/resources/html/weather.html" />
       </list>
     </option>
   </component>
@@ -306,7 +326,7 @@
     <property name="dynamic.classpath" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Pictures/precisionhawk/precisionhawk-inflight" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -517,8 +537,8 @@
     <option name="totallyTimeSpent" value="1302000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1592" y="-8" width="1616" height="876" extended-state="7" />
-    <editor active="false" />
+    <frame x="1592" y="-8" width="1616" height="876" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -701,9 +721,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/weather/WeatherWidget.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="4165">
+          <caret line="30" column="35" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/css/weatherstyle.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4021978" vertical-offset="1449" max-vertical-offset="1904">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1449" max-vertical-offset="1904">
           <caret line="96" column="45" selection-start-line="96" selection-start-column="45" selection-end-line="96" selection-end-column="45" />
           <folding />
         </state>
@@ -711,16 +739,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/html/weather.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20432693" vertical-offset="0" max-vertical-offset="6052">
-          <caret line="5" column="50" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/weather/WeatherWidget.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41098902" vertical-offset="0" max-vertical-offset="4165">
-          <caret line="28" column="19" selection-start-line="28" selection-start-column="19" selection-end-line="28" selection-end-column="19" />
+        <state vertical-scroll-proportion="-9.725962" vertical-offset="4080" max-vertical-offset="6052">
+          <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
           <folding />
         </state>
       </provider>
